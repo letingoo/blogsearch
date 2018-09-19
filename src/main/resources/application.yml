@@ -1,0 +1,6 @@
+targetUrl: https://letingoo.github.io
+
+elasticsearch:
+  url: http://118.89.244.167
+  tcp-port: 9300
+  http-port: 9200
