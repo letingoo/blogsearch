@@ -15,12 +15,15 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,6 +39,8 @@ public class CrawlBlog {
     @Autowired
     private TransportClient transportClient;
 
+    private Logger logger = LoggerFactory.getLogger(CrawlBlog.class);
+
     /**
      * 每天0点0分0秒开始爬取blog数据
      */
@@ -48,6 +53,8 @@ public class CrawlBlog {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Date date = new Date();
+        logger.info("crawl blogs at " + date.toString());
     }
 
 
