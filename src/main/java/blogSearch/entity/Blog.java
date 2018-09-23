@@ -23,4 +23,8 @@ public class Blog {
         this.title = title;
     }
 
+    public Blog() {
+
+    }
+
 }

@@ -14,14 +14,12 @@ import java.net.UnknownHostException;
 @Configuration
 public class ElasticsearchUtil {
 
-    @Value("${elasticsearch.url}")
-    private static String ES_URL;
-
-    @Value("${elasticsearch.tcp-port}")
-    private static int ES_TCP_PORT;
 
     @Bean(name = "transportClient")
-    public TransportClient transportClient() throws UnknownHostException {
+    public TransportClient transportClient(
+            @Value("${elasticsearch.url}") String ES_URL,
+            @Value("${elasticsearch.tcp-port}") int ES_TCP_PORT
+    ) throws UnknownHostException {
         Settings settings = Settings.builder().put("cluster.name", "elastic-cluster").build();
         TransportClient transportClient = new PreBuiltTransportClient(settings)
                 .addTransportAddress(new TransportAddress(InetAddress.getByName(ES_URL), ES_TCP_PORT));

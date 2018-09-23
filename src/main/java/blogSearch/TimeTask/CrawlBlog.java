@@ -3,8 +3,14 @@ package blogSearch.TimeTask;
 import blogSearch.entity.Blog;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.reindex.DeleteByQueryAction;
+import org.elasticsearch.index.reindex.DeleteByQueryRequest;
+import org.elasticsearch.index.reindex.DeleteByQueryRequestBuilder;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -37,6 +43,7 @@ public class CrawlBlog {
     public void crawlBlogAndSave() {
         List<Blog> blogList = crawl();
         try {
+            deleteAllFromES();
             saveToES(blogList);
         } catch (IOException e) {
             e.printStackTrace();
@@ -80,6 +87,12 @@ public class CrawlBlog {
             String content = document.select("div.entry").text();
             blog.setContent(content);
         }
+    }
+
+
+    public void deleteAllFromES() {
+        DeleteByQueryAction.INSTANCE.newRequestBuilder(transportClient).filter(QueryBuilders.matchAllQuery())
+                .source("blog-search").get();
     }
 
 

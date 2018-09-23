@@ -18,7 +18,11 @@ public class TestCrawl {
 
     @Test
     public void testCrawlBlog() {
-        List<Blog> list = crawlBlog.crawl();
-        System.out.println(list.size());
+        crawlBlog.crawlBlogAndSave();
+    }
+
+    @Test
+    public void testDeleteBlogs() {
+        crawlBlog.deleteAllFromES();
     }
 }
