@@ -5,6 +5,3 @@ elasticsearch:
   tcp-port: 9300
   http-port: 9200
 
-logging:
-  file: /zmc/blog-search.log
-  level: info

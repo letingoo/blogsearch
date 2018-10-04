@@ -41,7 +41,8 @@ public class InitESMapping {
                 .startObject("properties")
                 .startObject("url").field("type", "keyword").field("index", "not_analyzed").endObject()
                 .startObject("title").field("type", "text").field("analyzer", "ik_max_word").endObject()
-                .startObject("content").field("type", "text").field("analyzer", "ik_max_word").endObject()
+                .startObject("content").field("type", "text").field("analyzer", "ik_max_word")
+                    .field("search_analyzer", "ik_max_word").endObject()
                 .endObject()
                 .endObject()
                 .endObject().endObject();

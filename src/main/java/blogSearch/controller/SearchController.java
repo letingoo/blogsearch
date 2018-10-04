@@ -17,6 +17,7 @@ public class SearchController {
 
     @RequestMapping("/search/{keyword}")
     public List<Blog> search(@PathVariable("keyword") String keyword) {
-        return searchService.searchBlogsFromES(keyword);
+        String[] keywords = keyword.split(" ");
+        return searchService.searchBlogsFromES(keywords);
     }
 }
